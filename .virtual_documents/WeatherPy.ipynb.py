@@ -17,6 +17,12 @@ from datetime import datetime
 from config import weather_api_key
 
 
+# Import the time module.
+    #  import the time module to get the current date, rather than the datetime module that we used to convert the date.
+import time
+
+
+
 # Create a set of random latitude and longitude combinations.
     # 1) Create arrays of latitudes and longitudes, we'll declare each array as a variable. 
     # 2) Use Numpty random uniform because its faster to generate the random latitudes and longtitudes.
@@ -243,6 +249,99 @@ city_data_df
 output_data_file = "weather_data/cities.csv"
 # Export the City_Data into a CSV.
 city_data_df.to_csv(output_data_file, index_label="City_ID")
+
+
+# Extract relevant fields from the DataFrame for plotting.
+lats = city_data_df["Lat"]
+max_temps = city_data_df["Max Temp"]
+humidity = city_data_df["Humidity"]
+cloudiness = city_data_df["Cloudiness"]
+wind_speed = city_data_df["Wind Speed"]
+
+
+# Import the time module.
+    #  import the time module to get the current date, rather than the datetime module that we used to convert the date.
+import time
+# Get today's date in seconds.
+today = time.time()
+today
+
+
+today = time.strftime("get_ipython().run_line_magic("x")", "")
+today
+
+
+# Import time module
+import time
+
+# Build the scatter plot for latitude vs. max temperature.
+plt.scatter(lats,
+            max_temps,
+            edgecolor="black", linewidths=1, marker="o",
+            alpha=0.8, label="Cities")
+
+# Incorporate the other graph properties.
+plt.title(f"City Latitude vs. Max Temperature "+ time.strftime("get_ipython().run_line_magic("x"))", "")
+plt.ylabel("Max Temperature (F)")
+plt.xlabel("Latitude")
+plt.grid(True)
+
+# Save the figure.
+plt.savefig("weather_data/Fig1.png")
+
+# Show plot.
+plt.show()
+
+
+# Build the scatter plots for latitude vs. humidity.
+plt.scatter(lats,
+            humidity,
+            edgecolor="black", linewidths=1, marker="o",
+            alpha=0.8, label="Cities")
+
+# Incorporate the other graph properties.
+plt.title(f"City Latitude vs. Humidity "+ time.strftime("get_ipython().run_line_magic("x"))", "")
+plt.ylabel("Humidity (get_ipython().run_line_magic(")")", "")
+plt.xlabel("Latitude")
+plt.grid(True)
+# Save the figure.
+plt.savefig("weather_data/Fig2.png")
+# Show plot.
+plt.show()
+
+
+# Build the scatter plots for latitude vs. cloudiness.
+plt.scatter(lats,
+            cloudiness,
+            edgecolor="black", linewidths=1, marker="o",
+            alpha=0.8, label="Cities")
+
+# Incorporate the other graph properties.
+plt.title(f"City Latitude vs. Cloudiness (get_ipython().run_line_magic(")", " \"+ time.strftime(\"%x\"))")
+plt.ylabel("Cloudiness (get_ipython().run_line_magic(")")", "")
+plt.xlabel("Latitude")
+plt.grid(True)
+# Save the figure.
+plt.savefig("weather_data/Fig3.png")
+# Show plot.
+plt.show()
+
+
+# Build the scatter plots for latitude vs. wind speed.
+plt.scatter(lats,
+            wind_speed,
+            edgecolor="black", linewidths=1, marker="o",
+            alpha=0.8, label="Cities")
+
+# Incorporate the other graph properties.
+plt.title(f"City Latitude vs. Wind Speed "+ time.strftime("get_ipython().run_line_magic("x"))", "")
+plt.ylabel("Wind Speed (mph)")
+plt.xlabel("Latitude")
+plt.grid(True)
+# Save the figure.
+plt.savefig("weather_data/Fig4.png")
+# Show plot.
+plt.show()
 
 
 
