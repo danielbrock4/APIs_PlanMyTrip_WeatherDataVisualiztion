@@ -8,6 +8,14 @@ import matplotlib.pyplot as plt
     # When a Python file containing a script is imported to use in another Python script, the .py extension does not need to be added to the name of the file when using the import statement.    
 from citipy import citipy
 
+# Import the datetime module from the datetime library.
+    # If we want to convert the timestamp to the International Organization for Standardization (ISO) format, or YYYY-MM-DD-HH-MM-SS, we need to use the Python datetime module.
+from datetime import datetime
+
+# Import the API key.
+    # When a Python file containing a script is imported to use in another Python script, the .py extension does not need to be added to the name of the file when using the import statement.
+from config import weather_api_key
+
 
 # Create a set of random latitude and longitude combinations.
     # 1) Create arrays of latitudes and longitudes, we'll declare each array as a variable. 
@@ -47,11 +55,194 @@ for coordinate in coordinates:
 len(cities)    
 
 
+#view a part of cities list
+cities[:5]
+
+
+# Import the requests library.
+    # To request JSON data over the internet, we use the Requests Library in Python. 
+import requests
+
+# Use the citipy module to determine city based on latitude and longitude.
+    # Under "Looking up with coordinates," the first line says from citipy import citipy, meaning we'll import the citipy script from the citipy module.
+    # When a Python file containing a script is imported to use in another Python script, the .py extension does not need to be added to the name of the file when using the import statement.    
+from citipy import citipy
+
+# Import the datetime module from the datetime library.
+    # If we want to convert the timestamp to the International Organization for Standardization (ISO) format, or YYYY-MM-DD-HH-MM-SS, we need to use the Python datetime module.
+from datetime import datetime
+
+# Import the API key.
+    # When a Python file containing a script is imported to use in another Python script, the .py extension does not need to be added to the name of the file when using the import statement.
+from config import weather_api_key
+
+
+# Create an empty list to hold the weather data.
+city_data = []
+
+# Print the beginning of the logging.
+print("Beginning Data Retrieval     ")
+print("-----------------------------")
+
+# Create counters.
+record_count = 1
+set_count = 1
+
+
+# Starting URL for Weather Map API Call.
+# Structure example = api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid={API key}
+url = "http://api.openweathermap.org/data/2.5/weather?units=Imperial&APPID=" + weather_api_key
+
+
+# Loop through all the cities in our list.
+for i in range(len(cities)):
+
+    # Group cities in sets of 50 for logging purposes.
+    if (i % 50 == 0 and i >= 50):
+        set_count += 1
+        record_count = 1
+    # Create endpoint URL with each city.
+    city_url = url + "&q=" + cities[i]
+
+    # Not Part of the final code block, but for me to see what the cities list looks like after the for loop to spot the error.
+    city_error_view = i
+
+
+# View a part of cities list
+city_url
+city_error_view
+
+
+# Create the for loop with the enumerate() method and reference the index and the city in the list.
+    # Use the enumerate() method to get the index of the city for logging purposes and the city for creating an endpoint URL as an alternative 
+    # way to iterate through the list of cities and retrieve both the index, and the city from the list.
+for i, city in enumerate(cities):    
+    
+    # Group cities in sets of 50 for logging purposes.
+        #In the conditional statement, we check if the remainder of the index divided by 50 is equal to 0 and if the index is greater than or equal to 50. 
+        # If the statement is true, then the set_count and the record_count are incremented by 1.
+    if (i % 50 == 0 and i >= 50):
+        # % is modulo operation in python for example expression "5 mod 2" would evaluate to 1, because 5 divided by 2 has a quotient of 2 and a remainder of 1, while "9 mod 3" would evaluate to 0,
+        set_count += 1
+        record_count = 1
+        
+    # Create endpoint URL with each city.
+        # Inside the conditional statement, we create the URL endpoint for each city, as before. However, we are removing the blank spaces in the city name 
+        # and concatenating the city name with, city.replace(" ","+"). This will find the corresponding weather data for the city instead of finding the weather data for the first part of the city name.
+            # Compare the URLs for Cabo (Links to an external site.) and Cabo San Lucas
+    city_url = url + "&q=" + city.replace(" ","+")
+
+    # Log the URL, record, and set numbers and the city.
+        # Add a print statement that tells us the record count and set count, and the city that is being processed.
+#     print(f"Processing Record {record_count} of Set {set_count} | {city}")
+    # Add 1 to the record count.
+    record_count += 1
+
+
+# Create an empty list to hold the weather data.
+city_data = []
+
+# Print the beginning of the logging.
+print("Beginning Data Retrieval     ")
+print("-----------------------------")
+
+# Create counters.
+record_count = 1
+set_count = 1
+
+# Create the for loop with the enumerate() method and reference the index and the city in the list.
+    # Use the enumerate() method to get the index of the city for logging purposes and the city for creating an endpoint URL as an alternative 
+    # way to iterate through the list of cities and retrieve both the index, and the city from the list.
+for i, city in enumerate(cities):    
+    
+    # Group cities in sets of 50 for logging purposes.
+        #In the conditional statement, we check if the remainder of the index divided by 50 is equal to 0 and if the index is greater than or equal to 50. 
+        # If the statement is true, then the set_count and the record_count are incremented by 1.
+    if (i % 50 == 0 and i >= 50):
+        # % is modulo operation in python for example expression "5 mod 2" would evaluate to 1, because 5 divided by 2 has a quotient of 2 and a remainder of 1, while "9 mod 3" would evaluate to 0,
+        set_count += 1
+        record_count = 1
+        
+    # Create endpoint URL with each city.
+        # Inside the conditional statement, we create the URL endpoint for each city, as before. However, we are removing the blank spaces in the city name 
+        # and concatenating the city name with, city.replace(" ","+"). This will find the corresponding weather data for the city instead of finding the weather data for the first part of the city name.
+            # Compare the URLs for Cabo (Links to an external site.) and Cabo San Lucas
+    city_url = url + "&q=" + city.replace(" ","+")
+
+    # Log the URL, record, and set numbers and the city.
+        # Add a print statement that tells us the record count and set count, and the city that is being processed.
+    print(f"Processing Record {record_count} of Set {set_count} | {city}")
+    # Add 1 to the record count.
+    record_count += 1
+    
+    # Run an API request for each of the cities.
+    try:
+        # Parse the JSON for the current city and retrieve data.
+            # If there is no weather data for the city, i.e. , a <Response [404]> then there is no weather to retrieve and City not found. Skipping... is printed.
+        city_weather = requests.get(city_url).json()
+        # Parse out the needed data.
+            # If there is weather data for the city, we will retrieve the latitude, longitude, maximum temperature, humidity, cloudiness, wind speed, and date and assign those values to variables.
+            # We could write a try-except block for each one of these parameters to handle the KeyError if the data wasn't found, but since these parameters are always present in the response this won't be necessary.
+        city_lat = city_weather["coord"]["lat"]
+        city_lng = city_weather["coord"]["lon"]
+        city_max_temp = city_weather["main"]["temp_max"]
+        city_humidity = city_weather["main"]["humidity"]
+        city_clouds = city_weather["clouds"]["all"]
+        city_wind = city_weather["wind"]["speed"]
+        city_country = city_weather["sys"]["country"]
+        # Convert the date to ISO standard.
+        city_date = datetime.utcfromtimestamp(city_weather["dt"]).strftime('get_ipython().run_line_magic("Y-%m-%d", " %H:%M:%S')")
+        # Append the city information into city_data list.
+            # We append the cities list with a dictionary for that city, where the key-value pairs are the values from our weather parameters.
+        city_data.append({"City": city.title(),
+                          "Lat": city_lat,
+                          "Lng": city_lng,
+                          "Max Temp": city_max_temp,
+                          "Humidity": city_humidity,
+                          "Cloudiness": city_clouds,
+                          "Wind Speed": city_wind,
+                          "Country": city_country,
+                          "Date": city_date})
+
+# If an error is experienced, skip the city.
+    # Below the try block and after the except block, we add the closing print statement, which will let us know the data retrieval has been completed. 
+    # Make sure that your except block is indented and in line with the try block, and that the print statements are flush with the margin.
+    except:
+        print("City not found. Skipping...")
+        # Add the pass statement, which is a general purpose statement to handle all errors encountered and to allow the program to continue.
+        # NOTE: Generally, it isn't good coding practice to add the pass statement to the except block. Ideally, we want to handle or catch each error as it happens and do something specific 
+            # (e.g., add another try block or print out the error).
+        pass
+
+# Indicate that Data Loading is complete.
+print("-----------------------------")
+print("Data Retrieval Complete      ")
+print("-----------------------------")
+
+
+len(city_data)
+
+
+# Convert the array of dictionaries to a Pandas DataFrame.
+city_data_df = pd.DataFrame(city_data)
+city_data_df.head(10)
+
+
+list(city_data_df.columns)
+
+
+# Reorder the columns as City, Country, Date, Lat, Lng, Max Temp, Humidity, Cloudiness, and Wind Speed, so they are easy to read.
+new_column_order = ['City', 'Country', 'Date', 'Lat','Lng','Max Temp','Humidity','Cloudiness', 'Wind Speed',]
+
+
+city_data_df = city_data_df[new_column_order]
+city_data_df 
+
+
+# Create the output file (CSV).
+output_data_file = "weather_data/cities.csv"
+# Export the City_Data into a CSV.
+city_data_df.to_csv(output_data_file, index_label="City_ID")
 
 
 
-# 1)
-# 2)
-# 3)
-# 4) 
-# 5)
