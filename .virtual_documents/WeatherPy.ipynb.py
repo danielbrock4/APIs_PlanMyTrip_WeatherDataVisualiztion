@@ -21,6 +21,8 @@ from config import weather_api_key
     #  import the time module to get the current date, rather than the datetime module that we used to convert the date.
 import time
 
+# Import linear regression from the SciPy stats module.
+from scipy.stats import linregress
 
 
 # Create a set of random latitude and longitude combinations.
@@ -342,6 +344,111 @@ plt.grid(True)
 plt.savefig("weather_data/Fig4.png")
 # Show plot.
 plt.show()
+
+
+# Import linregress
+from scipy.stats import linregress
+
+# Create a function to create perform linear regression on the weather data
+# and plot a regression line and the equation with the data.
+def plot_linear_regression(x_values, y_values, title, y_label, text_coordinates):
+
+    # Run regression on hemisphere weather data.
+    (slope, intercept, r_value, p_value, std_err) = linregress(x_values, y_values)
+
+    # Calculate the regression line "y values" from the slope and intercept.
+    regress_values = x_values * slope + intercept
+    # Get the equation of the line.
+    line_eq = "y = " + str(round(slope,2)) + "x + " + str(round(intercept,2))
+    # Create a scatter plot and plot the regression line.
+    plt.scatter(x_values,y_values)
+    plt.plot(x_values,regress_values,"r")
+    # Annotate the text for the line equation.
+    plt.annotate(line_eq, text_coordinates, fontsize=15, color="red")
+    plt.title(title)
+    plt.xlabel('Latitude')
+    plt.ylabel(y_label)
+    plt.show()
+
+
+index_row13 = city_data_df.loc[13]
+index_row13
+
+
+city_data_df["Lat"] >= 0
+
+
+
+city_data_df.loc[(city_data_df["Lat"] >= 0)].head()
+
+
+# Create Northern and Southern Hemisphere DataFrames.
+northern_hemi_df = city_data_df.loc[(city_data_df["Lat"] >= 0)]
+southern_hemi_df = city_data_df.loc[(city_data_df["Lat"] < 0)]
+
+
+# Linear regression on the Northern Hemisphere
+x_values = northern_hemi_df["Lat"]
+y_values = northern_hemi_df["Max Temp"]
+# Call the function.
+plot_linear_regression(x_values, y_values,
+                       'Linear Regression on the Northern Hemisphere for Maximum Temperature', 'Max Temp',(0, -20))
+
+
+# Linear regression on the Northern Hemisphere
+x_values = southern_hemi_df["Lat"]
+y_values = southern_hemi_df["Max Temp"]
+# Call the function.
+plot_linear_regression(x_values, y_values,
+                       'Linear Regression on the Southern Hemisphere for Maximum Temperature', 'Max Temp',(-50, 90))
+
+
+# Linear regression on the Northern Hemisphere
+x_values = northern_hemi_df["Lat"]
+y_values = northern_hemi_df["Humidity"]
+# Call the function.
+plot_linear_regression(x_values, y_values,
+                       'Linear Regression on the Northern Hemisphere for % Humidity', '% Humidity',(40,10))
+
+
+# Linear regression on the Southern Hemisphere
+x_values = southern_hemi_df["Lat"]
+y_values = southern_hemi_df["Humidity"]
+# Call the function.
+plot_linear_regression(x_values, y_values,
+                       'Linear Regression on the Southern Hemisphere for % Humidity', '% Humidity',(-50,15))
+
+
+# Linear regression on the Northern Hemisphere
+x_values = northern_hemi_df["Lat"]
+y_values = northern_hemi_df["Cloudiness"]
+# Call the function.
+plot_linear_regression(x_values, y_values,
+                       'Linear Regression on the Northern Hemisphere for % Cloudiness', '% Cloudiness',(40,10))
+
+
+# Linear regression on the Northern Hemisphere
+x_values = southern_hemi_df["Lat"]
+y_values = southern_hemi_df["Cloudiness"]
+# Call the function.
+plot_linear_regression(x_values, y_values,
+                       'Linear Regression on the Northern Hemisphere for % Cloudiness', '% Cloudiness',(-50,20))
+
+
+# Linear regression on the Northern Hemisphere
+x_values = northern_hemi_df["Lat"]
+y_values = northern_hemi_df["Wind Speed"]
+# Call the function.
+plot_linear_regression(x_values, y_values,
+                       'Linear Regression on the Northern Hemisphere for Wind Speed', 'Wind Speed',(40,35))
+
+
+# Linear regression on the Southern Hemisphere
+x_values = southern_hemi_df["Lat"]
+y_values = southern_hemi_df["Wind Speed"]
+# Call the function.
+plot_linear_regression(x_values, y_values,
+                       'Linear Regression on the Southern Hemisphere for Wind Speed', 'Wind Speed',(-50,35))
 
 
 
