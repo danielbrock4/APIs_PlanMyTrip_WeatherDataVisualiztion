@@ -19,14 +19,14 @@ city_data_df.dtypes
 gmaps.configure(api_key=g_key)
 
 
-# Get the maximum temperature.
-max_temp = city_data_df["Max Temp"]
-temps = []
-for temp in max_temp:
-    # In the for loop, we're using the max() function to get the largest value between the temp and 0. 
-    #If the temp is less than 0, then 0 will be added to the list in its place. Otherwise, 
-    #the temp is added to the list
-    temps.append(max(temp, 0))
+# # Get the maximum temperature.
+# max_temp = city_data_df["Max Temp"]
+# temps = []
+# for temp in max_temp:
+#     # In the for loop, we're using the max() function to get the largest value between the temp and 0. 
+#     #If the temp is less than 0, then 0 will be added to the list in its place. Otherwise, 
+#     #the temp is added to the list
+#     temps.append(max(temp, 0))
 
 
 # Heatmap of temperature
@@ -43,7 +43,7 @@ fig = gmaps.figure()
 
 # 4. Assign the heatmap_layer variable to the heatmap_layer attribute and add in the locations.
 # heat_layer = gmaps.heatmap_layer(locations, weights=max_temp)
-heat_layer = gmaps.heatmap_layer(locations, weights=temps)
+heat_layer = gmaps.heatmap_layer(locations, weights=[max(temp, 0) for temp in max_temp])
                                  
 # 5. Add the heatmap layer.
 fig.add_layer(heat_layer)
