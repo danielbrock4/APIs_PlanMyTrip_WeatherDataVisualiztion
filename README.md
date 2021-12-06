@@ -12,4 +12,4 @@
 
 
 ## Challenge Project Overview
-Using Python, Pandas and APIs request, I plotted the relationship between latitude and weather for cities around the world. 
+Using Python, Pandas and APIs request, I plotted the relationship between latitude and weather for cities around the world. I assisted PlanMyTrip, a hypothetical travel company, in visualization and statistical analysis by retrieving and analyzing weather data from APIs.
