@@ -3,10 +3,10 @@
 
 **Data Source:**
 
-Mapbox API:
-- https://www.mapbox.com/
-Google Cloud Platform:
-- https://console.cloud.google.com/
+- Mapbox API:
+  - https://www.mapbox.com/
+- Google Cloud Platform:
+  - https://console.cloud.google.com/
 
 **Software:** Visual Studio Code, Python, JuypterLab, Pandas, MatplotLib, Numpy, CitiPy, Datetime, SciPy
 
