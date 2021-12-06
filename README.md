@@ -1,8 +1,9 @@
 # Module 6: WeatherPy with Python APIs
 ## Resources
-Data Source:
 
-**Mapbox API:**
+**Data Source:**
+
+Mapbox API:
 - https://www.mapbox.com/
 Google Cloud Platform:
 - https://console.cloud.google.com/
